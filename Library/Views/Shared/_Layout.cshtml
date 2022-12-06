@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body style="background: url('../../Content/background.jpg') 2500px 1665px;">
+    <header>
+        <div class="wrap-head">
+            <div class="header">
+                <div class="logo">
+                    <a href=""><img src="~/Content/logo.png" /></a>
+                </div>
+                <div class="nav">
+                    <ul>
+                        <li><a href="/Book/All">Книги</a></li>
+                        <li><a href="/Author/All">Авторы</a></li>
+                        <li><a href="/Genre/All">Жанры</a></li>
+                        @{
+                            if (User.IsInRole("admin")) // библиотекарь
+                            {
+                                <li><a href="/Placement/All">Расположения</a></li>
+                                <li><a href="/Supply/All">Выдачи</a></li>
+                                <li><a href="/Reservation/AllReservations">Бронирования</a></li>
+                                <li><a href="/Account/Logoff">Выйти</a></li>
+                            }
+                            else if (User.IsInRole("user")) // зарегистрированный читатель
+                            {
+                                <li><a href="/Reservation/MyReservation">Бронирование</a></li>
+                                <li><a href="/Account/Personal">Личный кабинет</a></li>
+                                <li><a href="/Account/Logoff">Выйти</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Account/Register">Регистрация</a></li>
+                                <li><a href="/Account/Login">Войти</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section style="margin-top: 10px;">
+        <div class="container body-content" style="width: 1500px; height: 100%; background: rgba(255,255,255,0.55)">
+            @RenderBody()
+        </div>
+    </section>
+
+    <footer>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

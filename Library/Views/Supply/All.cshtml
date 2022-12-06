@@ -1,0 +1,56 @@
+﻿@using Library.Models
+
+@model IEnumerable<Library.Models.Supply>
+
+@{
+    ViewBag.Title = "Выдачи";
+}
+
+<h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Выдачи</h1>
+
+<form action="\Supply\Create" style="float: right; padding-bottom: 4px; font-size: 15px;">
+    <input type="submit" value="Выдать книги" class="btn btn-default" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Дата")
+            </th>
+            <th>
+                @Html.Label("Читатель")
+            </th>
+            <th>
+                @Html.Label("Выданные книги")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reader.Lastname) 
+                    @Html.DisplayFor(modelItem => item.Reader.Name) 
+                    @Html.DisplayFor(modelItem => item.Reader.Patronymic)
+                </td>
+                <td>
+                    @{ 
+                        foreach (var book in item.Books)
+                        {
+                            <p>ISBN: @book.ISBN "@book.Title"</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.SupplyId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Library.Models.Book>
+
+@{
+    ViewBag.Title = "Книги";
+}
+
+<h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Книги</h1>
+
+@{
+    if (User.IsInRole("admin"))
+    {
+        <form action="\Book\Create" style="float: right; padding-bottom: 4px; font-size: 15px;">
+            <input type="submit" value="Добавить книгу" class="btn btn-default" />
+        </form>
+    }
+    else
+    {
+        <br />
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ISBN)
+            </th>
+            <th>
+                @Html.Label("Название")
+            </th>
+            <th>
+                @Html.Label("Год издания")
+            </th>
+            <th>
+                @Html.Label("Количество")
+            </th>
+            <th>
+                @Html.Label("Автор")
+            </th>
+            <th>
+                @Html.Label("Жанр")
+            </th>
+            <th>
+                @Html.Label("Расположение")
+            </th>
+            @{
+                if (User.IsInRole("admin") || User.IsInRole("user"))
+                {
+                    <th></th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.Name)
+                    @Html.DisplayFor(modelItem => item.Author.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Placement.Hall),
+                    @Html.DisplayFor(modelItem => item.Placement.Section), стеллаж:
+                    @Html.DisplayFor(modelItem => item.Placement.Rack), полка:
+                    @Html.DisplayFor(modelItem => item.Placement.Shelf)
+                </td>
+                @{ 
+                    if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Редактировать", "Edit", new { id = item.ISBN }) |
+                            @Html.ActionLink("Удалить", "Delete", new { id = item.ISBN })
+                        </td>
+                    } else if (User.IsInRole("user"))
+                    {
+                        <td>
+                            @{ 
+                                if (item.Amount > 0) {
+                                    @Html.ActionLink("Забронировать", "Reserve", "Reservation", new { id = item.ISBN }, null)
+                                }
+                            }
+                        </td>
+                    }
+                }                
+            </tr>
+        }
+    </tbody>
+</table>

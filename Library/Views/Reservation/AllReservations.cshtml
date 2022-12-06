@@ -1,0 +1,54 @@
+﻿@using Library.Models
+
+@model IEnumerable<Library.Models.Reservation>
+
+@{
+    ViewBag.Title = "Бронирования";
+}
+
+<h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Бронирования</h1>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Дата бронирования")
+            </th>
+            <th>
+                @Html.Label("Читатель")
+            </th>
+            <th>
+                @Html.Label("Забронированные книги")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reader.Lastname)
+                    @Html.DisplayFor(modelItem => item.Reader.Name)
+                    @Html.DisplayFor(modelItem => item.Reader.Patronymic)
+                </td>
+                <td>
+                    @{
+                        foreach (var book in item.Books)
+                        {
+                            <p>ISBN: @book.ISBN "@book.Title"</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Выдать", "MoveToSupplies", new { id = item.ReservationId }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.ReservationId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,75 @@
+﻿@model Library.Models.Book
+
+@{
+    ViewBag.Title = "Добавление книги";
+}
+
+<h1>Добавление книги</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="font-size: 15px;">
+        <hr style="border: 1px solid #828282">
+        @Html.Label("ISBN")
+        <div class="form-group">
+            <div class="col-md-10" style="">
+                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Название")
+        <div class="form-group">
+            <div class="col-md-10" style="">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "textbox", style = "width: 500px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Год издания")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "textbox", style = "width: 80px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Количество")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "textbox", style = "width: 80px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Автор")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.AuthorId, ViewBag.Authors as SelectList, new { @class = "textbox", style = "width: 300px;" })
+            </div>
+        </div>
+
+        @Html.Label("Жанр")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GenreId, ViewBag.Genres as SelectList, new { @class = "textbox", style = "width: 300px;" })
+            </div>
+        </div>
+
+        @Html.Label("Расположение")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PlacementId, ViewBag.Placements as SelectList, new { @class = "textbox", style = "width: 600px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Добавить" class="btn btn-default" />                
+            </div>
+        </div>
+    </div>
+}
+
+<form action="\Book\All">
+    <input type="submit" value="Назад" class="btn btn-default" style="width: 94px; margin-top: -5px;" />
+</form> 
+<br>   

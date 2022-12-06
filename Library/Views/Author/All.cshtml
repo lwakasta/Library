@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Library.Models.Author>
+
+@{
+    ViewBag.Title = "Авторы";
+}
+
+<h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Авторы</h1>
+
+@{
+    if (User.IsInRole("admin"))
+    {
+        <form action="\Author\Create" style="float: right; padding-bottom: 4px; font-size: 15px;">
+            <input type="submit" value="Добавить автора" class="btn btn-default" />
+        </form>
+    } else
+    {
+        <br />
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Фамилия")
+            </th>
+            <th>
+                @Html.Label("Имя")
+            </th>
+            <th>
+                @Html.Label("Отчество")
+            </th>
+            @{
+                if (User.IsInRole("admin"))
+                {
+                    <th></th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patronymic)
+                </td>
+                @{
+                    if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Редактировать", "Edit", new { id = item.AuthorId }) |
+                            @Html.ActionLink("Удалить", "Delete", new { id = item.AuthorId })
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

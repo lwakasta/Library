@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Library.Models.Placement>
+
+@{
+    ViewBag.Title = "Расположения";
+}
+
+<h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Расположения</h1>
+
+<form action="\Placement\Create" style="float: right; padding-bottom: 4px; font-size: 15px;">
+    <input type="submit" value="Добавить расположение" class="btn btn-default" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Зал")
+            </th>
+            <th>
+                @Html.Label("Раздел")
+            </th>
+            <th>
+                @Html.Label("Стеллаж")
+            </th>
+            <th>
+                @Html.Label("Полка")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rack)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shelf)
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.PlacementId }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.PlacementId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

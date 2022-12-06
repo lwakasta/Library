@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Бронирование";
+}
+
+<h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Забронированные книги</h1>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("ISBN")
+            </th>
+            <th>
+                @Html.Label("Название")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (ViewBag.Books != null)
+            {
+                foreach (var item in ViewBag.Books)
+                {
+                <tr>
+                    <td>
+                        <p>@item.ISBN</p>
+                    </td>
+                    <td>
+                        <p>@item.Title</p>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Отменить", "Cancel", new { id = item.ISBN })
+                    </td>
+                </tr>
+                }
+            }
+        }
+    </tbody>
+</table>

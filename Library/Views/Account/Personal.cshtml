@@ -1,0 +1,69 @@
+﻿@model Library.Models.Reader
+
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<center>
+    <h1 style="padding-top: 30px; margin-bottom: -20px; text-align: center; font-family:'Ekaterina Velikaya Two'; font-size: 60px; font-weight:600;">Личный кабинет</h1>
+
+    <div class="form-horizontal" style="font-size: 17px;">
+        <hr style="border: 1px solid #828282">
+
+        @Html.Label("Фамилия")
+        <div class="form-group">
+            <div class="">
+                @Html.DisplayFor(model => model.Lastname, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Имя")
+        <div class="form-group">
+            <div class="">
+                @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Отчество")
+        <div class="form-group">
+            <div class="">
+                @Html.DisplayFor(model => model.Patronymic, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Дата рождения")
+        <div class="form-group">
+            <div class="">
+                @Html.DisplayFor(model => model.Birth, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Книги на руках")
+        <div class="form-group">
+            <div class="">
+                @{
+                    int i = 1;
+                    foreach (var book in ViewBag.Books)
+                    {
+                        <p>@i. "@book.Title"</p>
+                        i += 1;
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="" style="display: inline-flex;">
+                <form action="\Account\ChangeInfo">
+                    <input type="submit" value="Изменить данные" class="btn btn-default" style="margin-left: -15px;"/>
+                </form>  
+                <form action="\Account\ChangePassword">
+                    <input type="submit" value="Сменить пароль" class="btn btn-default" style="margin-left: 10px;"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</center>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

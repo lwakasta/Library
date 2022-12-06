@@ -1,0 +1,56 @@
+﻿@model Library.Models.Placement
+
+@{
+    ViewBag.Title = "Редактирование информации об авторе";
+}
+
+<h1>Редактирование информации об авторе</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="font-size: 15px;">
+        <hr style="border: 0.5px solid #828282;" />
+        @Html.HiddenFor(model => model.PlacementId)
+
+        @Html.Label("Зал")
+        <div class="form-group">
+            <div class="col-md-10" style="">
+                @Html.EditorFor(model => model.Hall, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Раздел")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Section, new { htmlAttributes = new { @class = "textbox", style = "width: 300px;" } })
+            </div>
+        </div>
+
+        @Html.Label("Стеллаж")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rack, new { htmlAttributes = new { @class = "textbox", style = "width: 100px;" } })
+            </div>
+        </div>
+
+         @Html.Label("Полка")
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Shelf, new { htmlAttributes = new { @class = "textbox", style = "width: 100px;" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<form action="\Placement\All">
+    <input type="submit" value="Назад" class="btn btn-default" style="width: 102px; margin-top: -5px;" />
+</form>
+<br>
